@@ -21,12 +21,12 @@ References:
 
 <https://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf>
 
-https://github.com/nychealth/coronavirus-data/blob/master/deaths/deaths-by-underlying-conditions.csv
+<https://github.com/nychealth/coronavirus-data/blob/master/deaths/deaths-by-underlying-conditions.csv>
 
-https://www1.nyc.gov/site/doh/covid/covid-19-prevention-and-care.page
+<https://www1.nyc.gov/site/doh/covid/covid-19-prevention-and-care.page>
 
-https://github.com/d3/d3-selection
+<https://github.com/d3/d3-selection>
 
-http://www.d3noob.org/2014/04/using-html-inputs-with-d3js.html
+<http://www.d3noob.org/2014/04/using-html-inputs-with-d3js.html>
 
-https://github.com/sgratzl/d3tutorial
+<https://github.com/sgratzl/d3tutorial>
