@@ -16,9 +16,15 @@ I compared the age groups from the New York City Department of Health data set t
 The user can manipulate the color and the size of the circle by moving the cursor along the span. For example, if the user is aged 15, they should move the cursor towards the left and the circle displayed below should be green and small.
 
 References:
+
 https://www.census.gov/prod/cen2010/briefs/c2010br-03.pdf
+
 https://github.com/nychealth/coronavirus-data/blob/master/deaths/deaths-by-underlying-conditions.csv
+
 https://www1.nyc.gov/site/doh/covid/covid-19-prevention-and-care.page
+
 https://github.com/d3/d3-selection
+
 http://www.d3noob.org/2014/04/using-html-inputs-with-d3js.html
+
 https://github.com/sgratzl/d3tutorial
