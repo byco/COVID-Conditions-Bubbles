@@ -3,17 +3,14 @@
 <head>
   <meta charset="utf-8">
     <title>COVID Conditions Bubble Chart</title>
+
     <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 </head>
+
 <body>
-
   <p>
-  <label for="nRadius" 
-         style="display: inline-block; width: 240px; text-align: right">
-         Age = <span id="rad-value">…</span>
-  </label>
-  <input type="range" min="1" max="125" id="nRadius"><br>
 
+  <!--- Input section for various health conditions --->
   <input type="checkbox" id="condition1">
   <label for="condition1"> I have Cancer</label><br>
 
@@ -45,6 +42,7 @@
 
   <script type="text/javascript">
 
+    /*hardcoded diseases. note that in this case the count #s are just for the bubble size and aren't of significance*/
         dataset = {
             "children": [{"Name":"Cancer","Count":6000,"id":"a"},
                 {"Name":"Chronic Kidney Disease","Count":9000,"id":"b"},
@@ -57,18 +55,7 @@
                 {"Name":"Type 2 Diabetes","Count":8000,"id":"i"}]
         };
 
-/* for creating randomized Ids */
-function guid() {
-    function _random_letter() {
-        return String.fromCharCode(97+Math.floor(Math.random() * 26));
-    }
-    function _p8(s) {
-        var p = (Math.random().toString(16)+"000000000").substr(2,8);
-        return s ? "-" + p.substr(0,4) + "-" + p.substr(4,4) : _random_letter() + p.substr(0, 7);
-    }
-    return _p8() + _p8(true) + _p8(true) + _p8();
-}
-
+        /* create size of diagram - may need to change to be mobile compatible */
         var diameter = 750;
         var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -76,14 +63,17 @@ function guid() {
             .size([diameter+20, diameter+20])
             .padding(5);
 
+        /* use select to append and manipulate DOM elements */
         var svg = d3.select("body")
             .append("svg")
             .attr("width", diameter+300)
             .attr("height", diameter)
             .attr("class", "bubble");
+
         var nodes = d3.hierarchy(dataset)
             .sum(function(d) { return d.Count; });
 
+        /* add nodes from data set */
         var node = svg.selectAll(".node")
             .data(bubble(nodes).descendants())
             .enter()
@@ -96,11 +86,13 @@ function guid() {
                 return "translate(" + d.x + "," + d.y + ")";
             });
 
+        /* note that title can be read when hovering over bubble */
         node.append("title")
             .text(function(d) {
                 return d.data.Name;
             });
 
+        /* manipulate bubble CSS */
         node.append("circle")
             .attr("r", function(d) {
                 return d.r;
@@ -110,9 +102,11 @@ function guid() {
             })
             .attr("id", function(d) {
               // note - this works: return "a" + guid()
+              // IDs shouldn't start with digit
                 return d.data.Name;
             });
 
+        // append text on bubble
         node.append("text")
             .attr("dy", ".2em")
             .style("text-anchor", "middle")
@@ -127,7 +121,8 @@ function guid() {
         d3.select(self.frameElement)
             .style("height", diameter + "px");
 
-        // when the input range changes update the circle 
+// when the input range changes update the circle 
+// might want to refactor this later
 d3.select("#nRadius").on("input", function() {
   update(+this.value);
 });
@@ -152,10 +147,13 @@ updateColor2();
 d3.select("#condition9").on("change",updateColor9);
 updateColor();
 
-// update the elements
+
+//NOTE: I moved the update radius functions to test4.html since I think it makes more sense to have two separate visualizations - age and conditions
+// update the radius
 function update(nRadius) {
 
   // adjust the text on the range slider
+  // NOTE: remember that I added 20 for aesthetic effect. when transferring user data, remember to subtract 20 to get user age!
   d3.select("#rad-value").text(nRadius-20);
   d3.select("#nRadius").property("value", nRadius);
 
@@ -164,6 +162,8 @@ function update(nRadius) {
     .attr("r", nRadius);
 }
 
+// update the circle color based on condition status if checked
+// might want to refactor this later
 function updateColor() {
     if(d3.select("#condition1").property("checked")) {
     d3.select("#Cancer").style("fill", "orange")
